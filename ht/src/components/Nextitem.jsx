@@ -1,15 +1,15 @@
 import React from 'react';
 
 
-const Nextitem = ({ name, cost, src, onClick, isSelected}) => {
+const Nextitem = ({ name, price, image_url, onClick, isSelected}) => {
   const itemClassName = isSelected ? 'item first' : 'item';
 
     return (
         <div className={itemClassName} onClick={onClick}>
-        <div className="rpic"><img src={src} alt="" /></div>
+        <div className="rpic"><img src={image_url} alt="" /></div>
         <div className="text">
             <div className="name">{name}</div>
-            <div className="price">{cost}tg</div>
+            <div className="price">{price}tg</div>
         </div>
       </div>
     );

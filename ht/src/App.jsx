@@ -1,38 +1,27 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 // import pen from "../src/images/pen.png";
 // import iphone from ""
 import './App.css';
 import Nextitem from './components/Nextitem';
-function App() {
-  const [item, setItem] = useState({name: 'pen', cost: 100, src: 'https://www.pngplay.com/wp-content/uploads/2/Pen-PNG-Pic-Background-1.png'})
-  const [nextitems, setNextitems] = useState([
-    {
-      name: 'ip 14+',
-      cost: 1,
-      src: 'https://ss7.vzw.com/is/image/VerizonWireless/iphone-14-yellow-spring2023?$device-lg$'
-    },
-    {
-      name: 'ip 11',
-      cost: 100,
-      src: 'https://www.pngmart.com/files/15/Apple-iPhone-11-PNG-Transparent-HD-Photo.png'
-    },
-    {
-      name: 'ip 13 pro',
-      cost: 50,
-      src: 'https://assets.swappie.com/cdn-cgi/image/width=600,height=600,fit=contain,format=auto/swappie-iphone-13-pro-max-sierra-blue-back.png?v=35'
-    },
-    {
-      name: 'ip 13',
-      cost: 1000,
-      src: 'https://imgpng.ru/d/iphone_13_PNG27.png'
-    },
-  ])
+import axios from 'axios';
 
-  function itemChosen({ name, cost, src }){
+function App() {
+  const [item, setItem] = useState({name: 'pen', price: 1500, image_url: 'https://www.pngplay.com/wp-content/uploads/2/Pen-PNG-Pic-Background-1.png'})
+  const [nextitems, setNextitems] = useState([])
+
+  useEffect(() => {
+    axios.get(`http://127.0.0.1:8000/api/get-next/${item.price}`)
+     .then(res => {
+        console.log(res)
+        setNextitems(res.data)
+      })
+  }, []);
+
+  function itemChosen({ name, price, image_url }){
     // function chooseAnimation(name){
       setSelectedItem(name); // Update the selected item
     // }
-    setItem({ name, cost, src })
+    setItem({ name, price, image_url })
     // setIsround(false)
     setTimeout(() => {
       setIsround(false);
@@ -61,10 +50,10 @@ function App() {
     <>
 <div className="main">
   <div className="lscreen">
-    <div className="lpic"><img src={item.src} alt="" /></div>
+    <div className="lpic"><img src={item.image_url} alt="" /></div>
     <div className="text">
       <div className="name">{item.name}</div>
-      <div className="price">{item.cost}tg</div>
+      <div className="price">{item.price}tg</div>
 
     </div>
   </div>
@@ -74,8 +63,8 @@ function App() {
   <div className="roundscreen">
     {isround === true
       ? (
-        nextitems.map(({ name, cost, src}, index) => (
-         <Nextitem key={index} name={name} cost={cost} src={src} onClick={() => itemChosen({ name, cost, src })} isSelected={name === selectedItem} />
+        nextitems.map(({ name, price, image_url}, index) => (
+         <Nextitem key={index} name={name} price={price} image_url={image_url} onClick={() => itemChosen({ name, price, image_url })} isSelected={name === selectedItem} />
         ))
         )
       : (
