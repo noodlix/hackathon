@@ -1,48 +1,59 @@
 import { useState } from 'react';
-// import pen from "../src/images/pen.png";
-// import iphone from ""
+import oyu3 from '../src/images/oyu3.png';
+import oyumid from '../src/images/oyumid.png';
+// import oyu4 from '../src/images/oyu4.png';
 import './App.css';
 import Nextitem from './components/Nextitem';
 function App() {
-  const [item, setItem] = useState({name: 'pen', cost: 100, src: 'https://www.pngplay.com/wp-content/uploads/2/Pen-PNG-Pic-Background-1.png'})
+  const [item, setItem] = useState({name: 'pen', birth_year: 100, image_url: 'https://www.pngplay.com/wp-content/uploads/2/Pen-PNG-Pic-Background-1.png', content:'aa'})
+
+  const [user, setUser] = useState(null)
+
+  function startGame(){
+    setUser('gg')
+  }
   const [nextitems, setNextitems] = useState([
     {
-      name: 'ip 14+',
-      cost: 1,
-      src: 'https://ss7.vzw.com/is/image/VerizonWireless/iphone-14-yellow-spring2023?$device-lg$'
+      name: 'Kerey Khan',
+      birth_year: 1390,
+      image_url: 'https://e-history.kz/storage/tmp/resize/prominent_figures/1200_0_a78456c811efa07c0bcf4d05636f0487.jpg',
+      content:'Kerey Khan is a legendary figure, considered a founder of the Kazakh Khanate alongside Zhanibek Khan. His reign had a profound impact on the formation of Kazakh statehood.'
     },
     {
-      name: 'ip 11',
-      cost: 100,
-      src: 'https://www.pngmart.com/files/15/Apple-iPhone-11-PNG-Transparent-HD-Photo.png'
+      name: 'Zhanibek Khan',
+      birth_year: 1389,
+      image_url: 'https://e-history.kz/storage/tmp/resize/prominent_figures/1200_0_967954013499edebaa340adbb8de57cc.jpg',
+      content:'Zhanibek Khan, alongside Kerey Khan, established the Kazakh Khanate. His leadership was pivotal in the formation of Kazakh identity and statehood.'
     },
     {
-      name: 'ip 13 pro',
-      cost: 50,
-      src: 'https://assets.swappie.com/cdn-cgi/image/width=600,height=600,fit=contain,format=auto/swappie-iphone-13-pro-max-sierra-blue-back.png?v=35'
+      name: 'Abylai Khan',
+      birth_year: 1711,
+      image_url: 'https://el.kz/upload/medialibrary/adc/adc121fa8173ba3898ecd2600ad5f7f5.jpg',
+      content:'A significant Kazakh leader of the Middle Jüz. Abylai Khan was known for his efforts to preserve the independence of the Kazakh Khanate against the Dzungar and Russian empires.'
     },
     {
-      name: 'ip 13',
-      cost: 1000,
-      src: 'https://imgpng.ru/d/iphone_13_PNG27.png'
+      name: 'Kenesary Khan',
+      birth_year: 1802,
+      image_url: 'https://i.redd.it/hb572n5nc1x71.jpg',
+      content:'Kenesary Khan was the last Khan of the Kazakh Khanate. His rebellion against Russian rule is seen by some as a national liberation struggle.'
     },
   ])
 
-  function itemChosen({ name, cost, src }){
-    // function chooseAnimation(name){
-      setSelectedItem(name); // Update the selected item
-    // }
-    setItem({ name, cost, src })
-    // setIsround(false)
-    setTimeout(() => {
-      setIsround(false);
-    }, 1010);
+  function itemChosen({ name, birth_year, image_url, content }){
+    setSelectedItem(name); 
 
     setTimeout(() => {
+      setItem({ name, birth_year, image_url, content })
+    }, 510);
+
+    setTimeout(() => {
+      setIsround(false);
       setSelectedItem(null); 
-    }, 1011);
+    }, 511);
     // console.log(isround)
   }
+
+  // console.log(item.content)
 
   const [isround, setIsround] = useState(true)
   const [selectedItem, setSelectedItem] = useState(null);
@@ -51,20 +62,38 @@ function App() {
     // console.log(isround)
   }
 
-  function quit(){
-  }
-
-  function move(){
-  }
-
   return (
     <>
+
+{user === null
+      ? (
+  <div className="startscreen">
+    
+    <div className="start" onClick={startGame}>start</div>
+    <input type="text" placeholder='your username' />
+  </div>
+        )
+      : (
+        
+<>
+
+<div className="middleOyus">
+  <img className="middleOyu" src={oyumid} alt="" />
+  <img className="middleOyu" src={oyumid} alt="" />
+  <img className="middleOyu" src={oyumid} alt="" />
+  <img className="middleOyu" src={oyumid} alt="" />
+  <img className="middleOyu" src={oyumid} alt="" />
+</div>
+
 <div className="main">
   <div className="lscreen">
-    <div className="lpic"><img src={item.src} alt="" /></div>
+      <img className="oyu oyuUp" src={oyu3} alt="" />
+    <div className="lpic"><img src={item.image_url} alt="" /></div>
+    <img className="oyu oyuDown" src={oyu3} alt="" />
+
     <div className="text">
       <div className="name">{item.name}</div>
-      <div className="price">{item.cost}tg</div>
+      <div className="">{item.birth_year} year</div>
 
     </div>
   </div>
@@ -74,68 +103,27 @@ function App() {
   <div className="roundscreen">
     {isround === true
       ? (
-        nextitems.map(({ name, cost, src}, index) => (
-         <Nextitem key={index} name={name} cost={cost} src={src} onClick={() => itemChosen({ name, cost, src })} isSelected={name === selectedItem} />
+        nextitems.map(({ name, birth_year, image_url, content}, index) => (
+         <Nextitem key={index} name={name} birth_year={birth_year} image_url={image_url} content={content} onClick={() => itemChosen({ name, birth_year, image_url, content })} isSelected={name === selectedItem} />
         ))
         )
       : (
         <div className="options"> 
+        <div className="description">{item.content}</div>
           <div className="continue option" onClick={cont}>continue</div>
-          <div className="gohome option" onClick={quit}>go home</div>
+          {/* <div className="gohome option" onClick={quit}>go home</div> */}
         </div>
         )
     }
-{/* 
-      <div className="item" id='aaa'>
-        <div className="rpic"><img src='https://ss7.vzw.com/is/image/VerizonWireless/iphone-14-yellow-spring2023?$device-lg$' alt="" /></div>
-        <div className="text">
-            <div className="name">1</div>
-            <div className="price">100tg</div>
-        </div>
-      </div>
-
-      <div className="item">
-        <div className="rpic"><img src='https://www.pngmart.com/files/15/Apple-iPhone-11-PNG-Transparent-HD-Photo.png' alt="" /></div>
-        <div className="text">
-            <div className="name">2</div>
-            <div className="price">100tg</div>
-        </div>
-      </div>
-
-      <div className="item">
-        <div className="rpic"><img src='https://assets.swappie.com/cdn-cgi/image/width=600,height=600,fit=contain,format=auto/swappie-iphone-13-pro-max-sierra-blue-back.png?v=35' alt="" /></div>
-        <div className="text">
-            <div className="name">3</div>
-            <div className="price">100tg</div>
-        </div>
-      </div>
-
-      <div className="item">
-        <div className="rpic"><img src='https://imgpng.ru/d/iphone_13_PNG27.png' alt="" /></div>
-        <div className="text">
-            <div className="name">4</div>
-            <div className="price">100tg</div>
-        </div>
-      </div>
-
-      <button onClick={move}>kjhg</button>*/}
   </div> 
 
-
- 
-
-  {/* <div className="startscreen">
-    <div className="start option">start</div>
-  </div> */}
-
-  {/* <div className="quitscreen">
-    <div className="quit">game over</div>
-    <div className="quit">your inventory</div>
-  </div> */}
   </div>
 </div>
+</>
+        )
+      }
     </>
   )
 }
 
-export default App
+export default App;

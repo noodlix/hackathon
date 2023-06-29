@@ -6,7 +6,7 @@
 }
 .lscreen{
   width: 50vw;
-  background-color: rgb(75, 75, 75);
+  background-color: rgb(199, 191, 182);
   height: 100vh;
   display: flex;
   align-items: center;
@@ -15,7 +15,7 @@
 }
 .rscreen{
   width: 50vw;
-  background-color: white;
+  background-color: rgb(230, 230, 230);
   height: 100vh;
   display: flex;
   align-items: center;
@@ -31,64 +31,115 @@ img{
 .roundscreen{
   display: grid;
   grid-template-columns: auto auto;
+  gap:50px;
 }
 .item:hover{
-background-color: gray;
+background-color: rgb(199, 191, 182);
+border-radius: 50px;
 }
 
-@keyframes my-animation {
+
+/* @keyframes sss {
   0% {
-      transform: scale(1);
+     transform: translate(0, 0) scale(1);
   }
-  20% {
-    top: 50%; left: 50% ; transform: scale(1);
+  2% {
+     transform: translate(calc(-50%), calc(50%)) scale(1);
   }
-  /* 20% {
-      transform: translate(0, 40%) scale(1);
-  } */
-  40% {
-    top: 50%; left: 50%; transform: scale(1);
+  4% {
+    transform: translate(calc(-50%), calc(50%)) scale(2);
  }
  100% {
-  top: 50%;  left: 50%; transform: scale(1);
+    transform: translate(calc(-50%), calc(50%)) scale(2);
 }
 }
+.second {
+  animation: sss 1s linear forwards;
+}
+.second:hover{
+  background-color: rgb(255, 255, 255);
+} */
 
-.first {
-  background-color: rgb(255, 255, 255);
-  /* width: 25vw;
-  height: 50vh; */
-  /* padding: 100px; */
-  animation: my-animation 1s linear forwards;
-}
-.first:hover{
-  background-color: rgb(255, 255, 255);
-}
+
 .text{
   text-align: center;
+  font-size: 20px;
 }
 .name{
   font-size: 30px;
 }
 
+.options{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
 .option{
   margin: 20px;
   padding: 10px 45px;
   border-radius: 20px;
 }
 
-.gohome{
-  background-color: rgb(255, 125, 125);
-  border: 5px solid rgb(255, 214, 214);
-
+.description{
+  text-align: center;
+  width: 25vw;
+  font-size: 25px;
 }
 
 .continue{
-  background-color: rgb(84, 196, 84);
-  border: 5px solid rgb(199, 255, 199);
+  background-color: rgb(197, 173, 145);
+  border: 5px solid rgb(230, 205, 177);
+  width: 5vw;
+  text-align: center;
+
 
 }
 
+.price{
+  display: none;
+  font-size: 40px;
+}
+
+
+.reveal{
+  display: block;
+}
+
+.oyu{
+  width: 10vw;
+}
+
+.oyuDown{
+rotate: 180deg;
+}
+
+.middleOyus{
+  position: absolute;
+  left: 40%;
+  display: flex;
+  flex-direction: column;
+}
+
+.middleOyu{
+  height: 20vh;
+}
+
+.startscreen{
+  background-color: rgb(199, 191, 182);
+  width: 100vw;
+  height: 100vh;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 0;
+}
+
 .start{
-  background-color: rgb(109, 109, 255);
+  background-color: rgb(230, 230, 230);
+  border-radius: 20px;
+  padding: 20px 50px;
+  /* color: rgb(199, 191, 182); */
 }
