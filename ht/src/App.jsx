@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 // import pen from "../src/images/pen.png";
 // import iphone from ""
-import { useState } from 'react';
 import oyu3 from '../src/images/oyu3.png';
 import oyumid from '../src/images/oyumid.png';
 // import oyu4 from '../src/images/oyu4.png';
@@ -10,39 +9,49 @@ import Nextitem from './components/Nextitem';
 import axios from 'axios';
 
 function App() {
-  const [item, setItem] = useState({name: 'pen', birth_year: 100, image_url: 'https://www.pngplay.com/wp-content/uploads/2/Pen-PNG-Pic-Background-1.png', content:'aa'})
+  const [item, setItem] = useState({name: 'pen', birth_year: 1928, image_url: 'https://www.pngplay.com/wp-content/uploads/2/Pen-PNG-Pic-Background-1.png', content:'aa'})
 
   const [user, setUser] = useState(null)
 
   function startGame(){
     setUser('gg')
   }
+  
   const [nextitems, setNextitems] = useState([
-    {
-      name: 'Kerey Khan',
-      birth_year: 1390,
-      image_url: 'https://e-history.kz/storage/tmp/resize/prominent_figures/1200_0_a78456c811efa07c0bcf4d05636f0487.jpg',
-      content:'Kerey Khan is a legendary figure, considered a founder of the Kazakh Khanate alongside Zhanibek Khan. His reign had a profound impact on the formation of Kazakh statehood.'
-    },
-    {
-      name: 'Zhanibek Khan',
-      birth_year: 1389,
-      image_url: 'https://e-history.kz/storage/tmp/resize/prominent_figures/1200_0_967954013499edebaa340adbb8de57cc.jpg',
-      content:'Zhanibek Khan, alongside Kerey Khan, established the Kazakh Khanate. His leadership was pivotal in the formation of Kazakh identity and statehood.'
-    },
-    {
-      name: 'Abylai Khan',
-      birth_year: 1711,
-      image_url: 'https://el.kz/upload/medialibrary/adc/adc121fa8173ba3898ecd2600ad5f7f5.jpg',
-      content:'A significant Kazakh leader of the Middle Jüz. Abylai Khan was known for his efforts to preserve the independence of the Kazakh Khanate against the Dzungar and Russian empires.'
-    },
-    {
-      name: 'Kenesary Khan',
-      birth_year: 1802,
-      image_url: 'https://i.redd.it/hb572n5nc1x71.jpg',
-      content:'Kenesary Khan was the last Khan of the Kazakh Khanate. His rebellion against Russian rule is seen by some as a national liberation struggle.'
-    },
+    // {
+    //   name: 'Kerey Khan',
+    //   birth_year: 1390,
+    //   image_url: 'https://e-history.kz/storage/tmp/resize/prominent_figures/1200_0_a78456c811efa07c0bcf4d05636f0487.jpg',
+    //   content:'Kerey Khan is a legendary figure, considered a founder of the Kazakh Khanate alongside Zhanibek Khan. His reign had a profound impact on the formation of Kazakh statehood.'
+    // },
+    // {
+    //   name: 'Zhanibek Khan',
+    //   birth_year: 1389,
+    //   image_url: 'https://e-history.kz/storage/tmp/resize/prominent_figures/1200_0_967954013499edebaa340adbb8de57cc.jpg',
+    //   content:'Zhanibek Khan, alongside Kerey Khan, established the Kazakh Khanate. His leadership was pivotal in the formation of Kazakh identity and statehood.'
+    // },
+    // {
+    //   name: 'Abylai Khan',
+    //   birth_year: 1711,
+    //   image_url: 'https://el.kz/upload/medialibrary/adc/adc121fa8173ba3898ecd2600ad5f7f5.jpg',
+    //   content:'A significant Kazakh leader of the Middle Jüz. Abylai Khan was known for his efforts to preserve the independence of the Kazakh Khanate against the Dzungar and Russian empires.'
+    // },
+    // {
+    //   name: 'Kenesary Khan',
+    //   birth_year: 1802,
+    //   image_url: 'https://i.redd.it/hb572n5nc1x71.jpg',
+    //   content:'Kenesary Khan was the last Khan of the Kazakh Khanate. His rebellion against Russian rule is seen by some as a national liberation struggle.'
+    // },
   ])
+
+  useEffect(() => {
+    console.log(`http://127.0.0.1:8000/api/get-next/${item.birth_year}`)
+    axios.get(`http://127.0.0.1:8000/api/get-next/${item.birth_year}`)
+     .then(res => {
+       console.log(res.data)
+       setNextitems(res.data)
+      })
+  }, [item]);
 
   function itemChosen({ name, birth_year, image_url, content }){
     setSelectedItem(name); 

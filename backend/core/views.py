@@ -15,19 +15,24 @@ def get_next(request, pk):
 
     pk = int(pk)
 
-    images = Historical_Figures.objects.filter(birth_year__gt=pk * 0.8, birth_year__lt=pk * 1.2)
+    figures = Historical_Figures.objects.order_by('birth_year')
 
+    i = 0
+    while figures[i].birth_year != pk:
+        i += 1
+    
+    l = i - 4 if i - 4 >= 0 else 0
+    r = i + 4 if i + 4 < len(figures) else len(figures) - 1
+    
     response = set()
-
     while len(response) != 4:
-        rand = random.randint(0, len(images) - 1)
-        response.add(images[rand])
+        rand = random.randint(l, r)
+        if rand == i:
+            continue
+        response.add(figures[rand])
 
-    if len(images) < 4:
-        #Maybe if there are not enough within a range
-        pass
 
-    return JsonResponse([{'name' : image.name, 'image_url' : image.image_url, 'birth_year' : image.birth_year, 'content' : image.content} for image in response], safe=False)
+    return JsonResponse([{'name' : figure.name, 'image_url' : figure.image_url, 'birth_year' : figure.birth_year, 'content' : figure.content} for figure in response], safe=False)
 
 
 def create_db(request):

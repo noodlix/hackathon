@@ -14,4 +14,4 @@ class Historical_Figures(models.Model):
     content = models.CharField(max_length=500)
 
     def __str__(self) -> str:
-        return self.name
+        return f'{self.name} {self.birth_year}'

@@ -36,7 +36,7 @@ def main():
         {'image_url' : '', 'name' : 'Dalida Yerkuliyeva', 'birth_year' : 1992, 'content' : 'Dalida, an environmental expert at EY, holds an MSc in Environmental Technology from Imperial College London (2017) and completed studies on Environmental Conservation at Queen Mary University of London (2014). She specializes in corporate standards, sustainability, and reporting systems. '}
     ]
 
-    # db = sorted(kazakh_figures, key=lambda x: x['birth_year'])
+    db = sorted(kazakh_figures, key=lambda x: x['birth_year'])
 
     # def remove_duplicate_dictionaries(lst):
     #     unique_dicts = [dict(t) for t in {tuple(sorted(d.items())) for d in lst}]
@@ -49,6 +49,8 @@ def main():
     # for b in dbb:
     #     print(b)
     
-    # for b in db:
-    #     print(b['name'], b['birth_year'])
+    for b in db:
+        print(b['name'], b['birth_year'])
     return kazakh_figures
+
+main()
