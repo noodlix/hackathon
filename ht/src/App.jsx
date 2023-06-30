@@ -1,17 +1,14 @@
-import { useEffect, useState } from 'react';
-// import pen from "../src/images/pen.png";
-// import iphone from ""
-import oyu3 from '../src/images/oyu3.png';
-import oyumid from '../src/images/oyumid.png';
-// import oyu4 from '../src/images/oyu4.png';
 import axios from 'axios';
+import { useEffect, useState } from 'react';
 import './App.css';
 import Nextitem from './components/Nextitem';
+import oyu3 from './images/oyu3.png';
+import oyumid from './images/oyumid.png';
 
 function App() {
-  const [item, setItem] = useState({name: 'pen', birth_year: 1511, image_url: 'https://www.pngplay.com/wp-content/uploads/2/Pen-PNG-Pic-Background-1.png', content:'aa'})
-
-  const [user, setUser] = useState('');
+  const [item, setItem] = useState({name: 'Kozy-Korpesh and Bayan Sulu', birth_year: 0, image_url: 'https://almaty.tv/news_photo/1618469383_news_b.jpeg', content:'Kozy-Korpesh and Bayan Sulu are legendary figures from a Kazakh epic poem, symbolizing eternal love. The tale, one of the most famous from the Kazakh oral tradition, has shaped national ideas of love, honor, and fidelity.'})
+  const [user, setUser] = useState({username: '', year: 0});
+  const [gameOver, setGameOver] = useState(false);
   const [usersArray, setUsersArray] = useState(() => {
     const storedUsers = localStorage.getItem('users');
     return storedUsers ? JSON.parse(storedUsers) : [];
@@ -22,55 +19,28 @@ function App() {
   }, [usersArray]);
 
 
-  const handleKeyPress = (event) => {
+  const startGame = (event) => {
     if (event.key === 'Enter') {
-      const newUser = {
-        username: event.target.value,
-        year: new Date().getFullYear()
-      };
-      const updatedUsersArray = [...usersArray, newUser];
+      const username = event.target.value;
+      const year = item.birth_year;
+      const updatedUser = { username, year };
+      setUser(updatedUser);
+      const updatedUsersArray = [...usersArray, updatedUser];
       setUsersArray(updatedUsersArray);
       localStorage.setItem('users', JSON.stringify(updatedUsersArray));
-      setUser(event.target.value);
     }
   };
-  console.log(usersArray)
+  // console.log(usersArray)
 
   const [nextitems, setNextitems] = useState([
-    // {
-    //   name: 'Kerey Khan',
-    //   birth_year: 1390,
-    //   image_url: 'https://e-history.kz/storage/tmp/resize/prominent_figures/1200_0_a78456c811efa07c0bcf4d05636f0487.jpg',
-    //   content:'Kerey Khan is a legendary figure, considered a founder of the Kazakh Khanate alongside Zhanibek Khan. His reign had a profound impact on the formation of Kazakh statehood.'
-    // },
-    // {
-    //   name: 'Zhanibek Khan',
-    //   birth_year: 1389,
-    //   image_url: 'https://e-history.kz/storage/tmp/resize/prominent_figures/1200_0_967954013499edebaa340adbb8de57cc.jpg',
-    //   content:'Zhanibek Khan, alongside Kerey Khan, established the Kazakh Khanate. His leadership was pivotal in the formation of Kazakh identity and statehood.'
-    // },
-    // {
-    //   name: 'Abylai Khan',
-    //   birth_year: 1711,
-    //   image_url: 'https://el.kz/upload/medialibrary/adc/adc121fa8173ba3898ecd2600ad5f7f5.jpg',
-    //   content:'A significant Kazakh leader of the Middle Jüz. Abylai Khan was known for his efforts to preserve the independence of the Kazakh Khanate against the Dzungar and Russian empires.'
-    // },
-    // {
-    //   name: 'Kenesary Khan',
-    //   birth_year: 1802,
-    //   image_url: 'https://i.redd.it/hb572n5nc1x71.jpg',
-    //   content:'Kenesary Khan was the last Khan of the Kazakh Khanate. His rebellion against Russian rule is seen by some as a national liberation struggle.'
-    // },
   ])
 
   useEffect(() => {
-    // console.log(`http://127.0.0.1:8000/api/get-next/${item.birth_year}`)
+    console.log(`http://127.0.0.1:8000/api/get-next/${item.birth_year}`)
     axios.get(`http://127.0.0.1:8000/api/get-next/${item.birth_year}`)
      .then(res => {
-      //  console.log(res.data)
-        
-        setNextitems(res.data)
-        
+       console.log(res.data)
+       setNextitems(res.data)
       })
   }, [item]);
 
@@ -78,38 +48,44 @@ function App() {
     setSelectedItem(name); 
 
     setTimeout(() => {
-      setItem({ name, birth_year, image_url, content })
+
+      if(item.birth_year <= birth_year){
+        setItem({ name, birth_year, image_url, content })
+      } else{
+        // setItem({ name, birth_year, image_url, content })
+        setGameOver(true);
+        setUser({username: user.username, year: item.birth_year})
+        // console.log('user year has been set', user)
+        // console.log(item.birth_year)
+      }
     }, 510);
 
     setTimeout(() => {
       setIsround(false);
       setSelectedItem(null); 
     }, 511);
-    // console.log(isround)
   }
 
-  console.log(usersArray)
+  // console.log(usersArray)
 
   const [isround, setIsround] = useState(true)
   const [selectedItem, setSelectedItem] = useState(null);
   function cont(){
     setIsround(true)
-    // console.log(isround)
   }
 
   return (
     <>
 
-{user === ''
+{user.username === ''
       ? (
   <div className="startscreen">
-    <div className="logo">Dalida💘</div>
-    {/* <input type="text" className='inp' onKeyPress={}/> */}
+    <div className="logo">Back to the Future</div>
     <input
         type="text"
-        onKeyDown={handleKeyPress}
+        className='impu'
+        onKeyDown={startGame}
       />
-    {/* <div className="start" onClick={startGame}>start</div> */}
   </div>
         )
       : (
@@ -127,12 +103,12 @@ function App() {
 <div className="main">
   <div className="lscreen">
       <img className="oyu oyuUp" src={oyu3} alt="" />
-    <div className="lpic"><img src={item.image_url} alt="" /></div>
+    <div className="lpic"><img className='leftpic' src={item.image_url} alt="" /></div>
     <img className="oyu oyuDown" src={oyu3} alt="" />
 
     <div className="text">
       <div className="name">{item.name}</div>
-      <div className="">{item.birth_year} year</div>
+      <div><div id="useryr">{item.birth_year}</div> year</div>
 
     </div>
   </div>
@@ -140,6 +116,22 @@ function App() {
   <div className="rscreen">
 
   <div className="roundscreen">
+    {
+      gameOver === true 
+      ? (
+      <div className='lostPage'>
+        <div className="youlost">You just lost :((</div>
+          {/* <div className="scorebd">ScoreBoard</div>
+          <div className="scoreboard">
+          {usersArray.map(({ username}, index) => (
+          <li key={index} username={username}>{username}</li>
+          ))}
+          {usersArray.map(({score}, index) => (
+          <li key={index} score={score}>{score}</li>
+          ))}
+          </div> */}
+      </div>
+      ) : (<>
     {isround === true
       ? (
         nextitems.map(({ name, birth_year, image_url, content}, index) => (
@@ -149,10 +141,13 @@ function App() {
       : (
         <div className="options"> 
         <div className="description">{item.content}</div>
-          <div className="continue option" onClick={cont}>continue</div>
+        <div className="continue option" onClick={cont}>continue</div>
+
           {/* <div className="gohome option" onClick={quit}>go home</div> */}
         </div>
         )
+    }
+    </>)
     }
   </div> 
 

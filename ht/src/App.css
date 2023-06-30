@@ -81,6 +81,17 @@ border-radius: 50px;
   border-radius: 20px;
 }
 
+.personImage{
+  width: 16vw;
+  object-fit: cover;
+  aspect-ratio: 3 / 4;
+}
+
+.leftpic{
+  width: 20vw;
+  object-fit: cover;
+  aspect-ratio: 3 / 4;
+}
 .description{
   text-align: center;
   width: 25vw;
@@ -92,8 +103,28 @@ border-radius: 50px;
   border: 5px solid rgb(230, 205, 177);
   width: 5vw;
   text-align: center;
+}
 
+.lostPage{
+  background-color: rgb(197, 145, 145);
+  width: 50vw;
+  height: calc(100vh - 50px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding-top: 50px;
+}
+.youlost{
+  font-size: 20px;
+  color: rgb(99, 26, 26);
+}
 
+.scorebd{
+  padding: 10px 50px;
+  margin-top: 20px ;
+  font-size: 25px;
+  color: rgb(99, 26, 26);
 }
 
 .price{
@@ -101,6 +132,13 @@ border-radius: 50px;
   font-size: 40px;
 }
 
+input{
+  margin: 0px;
+  height: 40px;
+  border-radius: 10px;
+  border: none;
+  /* padding: 15px; */
+}
 
 .reveal{
   display: block;
@@ -152,6 +190,6 @@ rotate: 180deg;
 }
 
 .logo{
-  font-size: 150px;
+  font-size: 50px;
   margin: 30px;
 }
