@@ -42,8 +42,10 @@ function App() {
     console.log(`http://127.0.0.1:8000/api/get-next/${item.birth_year}`)
     axios.get(`http://127.0.0.1:8000/api/get-next/${item.birth_year}`)
      .then(res => {
-       console.log(res.data)
-       setNextitems(res.data)
+      //  console.log(res.data)
+        
+        setNextitems(res.data)
+        
       })
   }, [item]);
 
