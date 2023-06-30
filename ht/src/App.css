@@ -143,3 +143,15 @@ rotate: 180deg;
   padding: 20px 50px;
   /* color: rgb(199, 191, 182); */
 }
+
+.inp{
+  width: 200px;
+  margin-bottom: 30px;
+  height: 40px;
+  border-radius: 10px;
+}
+
+.logo{
+  font-size: 150px;
+  margin: 30px;
+}

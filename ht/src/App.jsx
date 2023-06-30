@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import oyu3 from '../src/images/oyu3.png';
 import oyumid from '../src/images/oyumid.png';
 // import oyu4 from '../src/images/oyu4.png';
@@ -7,11 +7,31 @@ import Nextitem from './components/Nextitem';
 function App() {
   const [item, setItem] = useState({name: 'pen', birth_year: 100, image_url: 'https://www.pngplay.com/wp-content/uploads/2/Pen-PNG-Pic-Background-1.png', content:'aa'})
 
-  const [user, setUser] = useState(null)
+  const [user, setUser] = useState('');
+  const [usersArray, setUsersArray] = useState(() => {
+    const storedUsers = localStorage.getItem('users');
+    return storedUsers ? JSON.parse(storedUsers) : [];
+  });
+  
+  useEffect(() => {
+    localStorage.setItem('users', JSON.stringify(usersArray));
+  }, [usersArray]);
 
-  function startGame(){
-    setUser('gg')
-  }
+
+  const handleKeyPress = (event) => {
+    if (event.key === 'Enter') {
+      const newUser = {
+        username: event.target.value,
+        year: new Date().getFullYear()
+      };
+      const updatedUsersArray = [...usersArray, newUser];
+      setUsersArray(updatedUsersArray);
+      localStorage.setItem('users', JSON.stringify(updatedUsersArray));
+      setUser(event.target.value);
+    }
+  };
+  console.log(usersArray)
+
   const [nextitems, setNextitems] = useState([
     {
       name: 'Kerey Khan',
@@ -53,7 +73,7 @@ function App() {
     // console.log(isround)
   }
 
-  // console.log(item.content)
+  console.log(usersArray)
 
   const [isround, setIsround] = useState(true)
   const [selectedItem, setSelectedItem] = useState(null);
@@ -65,12 +85,16 @@ function App() {
   return (
     <>
 
-{user === null
+{user === ''
       ? (
   <div className="startscreen">
-    
-    <div className="start" onClick={startGame}>start</div>
-    <input type="text" placeholder='your username' />
+    <div className="logo">Dalida💘</div>
+    {/* <input type="text" className='inp' onKeyPress={}/> */}
+    <input
+        type="text"
+        onKeyDown={handleKeyPress}
+      />
+    {/* <div className="start" onClick={startGame}>start</div> */}
   </div>
         )
       : (
