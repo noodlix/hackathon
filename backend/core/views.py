@@ -20,7 +20,7 @@ def get_next(request, pk):
     i = 0
     while figures[i].birth_year != pk:
         i += 1
-    
+        
     l = i - 4 if i - 4 >= 0 else 0
     r = i + 4 if i + 4 < len(figures) else len(figures) - 1
     

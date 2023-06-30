@@ -9,7 +9,7 @@ import './App.css';
 import Nextitem from './components/Nextitem';
 
 function App() {
-  const [item, setItem] = useState({name: 'pen', birth_year: 1928, image_url: 'https://www.pngplay.com/wp-content/uploads/2/Pen-PNG-Pic-Background-1.png', content:'aa'})
+  const [item, setItem] = useState({name: 'pen', birth_year: 1511, image_url: 'https://www.pngplay.com/wp-content/uploads/2/Pen-PNG-Pic-Background-1.png', content:'aa'})
 
   const [user, setUser] = useState('');
   const [usersArray, setUsersArray] = useState(() => {
@@ -64,11 +64,13 @@ function App() {
   ])
 
   useEffect(() => {
-    console.log(`http://127.0.0.1:8000/api/get-next/${item.birth_year}`)
+    // console.log(`http://127.0.0.1:8000/api/get-next/${item.birth_year}`)
     axios.get(`http://127.0.0.1:8000/api/get-next/${item.birth_year}`)
      .then(res => {
-       console.log(res.data)
-       setNextitems(res.data)
+      //  console.log(res.data)
+        
+        setNextitems(res.data)
+        
       })
   }, [item]);
 
